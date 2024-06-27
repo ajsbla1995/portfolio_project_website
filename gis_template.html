@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Static Maps</title>
+    <style>
+		.major h3 {
+            text-align: justify; /* Aligns content to the left */
+                font-family: Didot, sans-serif;
+        }
+        .major h2 {
+                text-align: left; /* Aligns content to the left */
+                font-family: Didot, sans-serif;
+            }
+	
+		.map-container h3 {
+			grid-column: 1 / -1; /* Make the header span across the entire width of the grid */
+			font-family: Didot, sans-serif; /* Change font family if desired */
+			font-size: 1em; /* Adjust font size */
+			margin-top: 20px; /* Add some margin for spacing */
+			margin-bottom: 10px; /* Add some margin for spacing */
+		}
+        .web-map-container h3{
+            grid-column: 1 / -1; /* Make the header span across the entire width of the grid */
+			font-family: Didot, sans-serif; /* Change font family if desired */
+			font-size: 1em; /* Adjust font size */
+			margin-top: 20px; /* Add some margin for spacing */
+			margin-bottom: 10px; /* Add some margin for spacing */
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .pythonanywhere-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .map-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .map-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.2s ease-in-out;
+        }
+        .map-item:hover img {
+            transform: scale(1.1);
+        }
+        .map-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .map-modal img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .loading-text {
+            font-size: 18px;
+            text-align: center;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            display: flex; /* Initially hide the loading text */
+        }
+        .caption {
+                font-size: 0.8em; /* Adjust as needed for smaller font size */
+                color: #555; /* Optional: adjust color for better readability */
+                display: block;
+                text-align: left;
+                margin-top: -10px; /* Adjust margin as needed */
+            }
+
+		
+    </style>
+	<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var mapItems = document.querySelectorAll('.map-item img');
+            var modal = document.getElementById('mapModal');
+            var modalImg = document.getElementById('modalImg');
+
+            // Add click event listeners to each map item
+            mapItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    openModal(this.getAttribute('data-path'));
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+	<div class="major">
+        <h2>Static Maps</h2>
+    </div>
+    <div class="map-container">
+		<h3>ArcGIS Pro Projects</h3>
+		<div class="map-item">
+            <img src="Maps/2000 WUI Layout.png" data-path="Maps/2000 WUI Layout.png" alt="Map 3">
+		</div>     
+		<div class="map-item">
+            <img src="Maps/2020 WUI Layout.png" data-path="Maps/2020 WUI Layout.png" alt="Map 3">
+		</div>      
+		<div class="map-item">
+            <img src="Maps/CA_Choropleth.png" data-path="Maps/CA_Choropleth.png" alt="Map 2">
+        </div>
+        <div class="map-item">
+            <img src="Maps/SoCo_Site_Suitability_1.png" data-path="Maps/SoCo_Site_Suitability_1.png" alt="Map 3">
+        </div>
+
+		<h3>Python Projects</h3>
+		<div class="map-item">
+            <img src="Maps/damage_causing_agent.png" data-path="Maps/damage_causing_agent.png" alt="Map 3">
+        </div>
+		<div class="map-item">
+            <img src="Maps/August Fire Veg Health.png" data-path="Maps/August Fire Veg Health.png" alt="Map 3">
+		</div> 
+		<div class="map-item">
+            <img src="Maps/Yosemite_Peak_Elevations.png" data-path="Maps/Yosemite_Peak_Elevations.png" alt="Map 3">
+		</div> 
+		      
+		
+    </div>
+
+	<div class="major">
+        <h2>Web Maps</h2>
+    </div>
+        <!-- Isochrone Map -->
+        <div class="web-map-container">
+            <h3>Isochrone Map</h3>
+            <iframe src="Maps/Calaveras County_network_interactive.html" width="100%" height="850" frameborder="0" scrolling="no"></iframe>
+        </div>
+        
+        <!-- Wildfire Tracker Map -->
+        <div class="web-map-container">
+            <h3>Wildfire Tracker Map </h3>
+            <small class="caption">please allow for up to 1 minute for the map to download</small>         
+            <iframe id="pythonanywhere-frame" src="http://ajsbla.pythonanywhere.com/" width="100%" height="850" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <!-- Modal for displaying enlarged map -->
+    <div id="mapModal" class="map-modal">
+        <img id="modalImg" src="" alt="Enlarged Map">
+    </div>
+
+</body>
+</html>

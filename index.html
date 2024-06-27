@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Andre Sabala Portfolio</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+	<style>
+		/* Custom CSS for adding a box around nav links */
+		#nav .links .active {
+			border: 2px solid #131212a9;
+			/* Border style */
+			padding: 5px;
+			/* Padding around the links */
+			border-radius: 5px;
+			/* Rounded corners */
+		}
+
+		#nav .links li.active a {
+			background-color: rgb(202, 193, 193);
+			color: rgb(3, 3, 3);
+			/* Ensures text is readable */
+		}
+
+		/* CSS to style all tableauViz elements uniformly */
+		.tableauViz {
+			min-width: 620px;
+			/* Minimum width */
+			max-width: 1120px;
+			/* Maximum width */
+			width: 100%;
+			/* Full width */
+			min-height: 587px;
+			/* Minimum height */
+			max-height: 1187px;
+			/* Maximum height */
+			height: auto;
+			/* Auto height */
+		}
+
+		header.major h1 {
+			font-family: Didot, sans-serif;
+			/* Change to your preferred font */
+			font-size: 36px;
+			/* Font size for the main heading */
+			color: #2243c9b6;
+			/* Dark grey color for the text */
+			margin: 0;
+			/* Remove default margin */
+			padding: 0;
+			/* Remove default padding */
+			line-height: 1.2;
+			/* Adjust line height */
+			margin-top: 30px;
+			/* Adjust margin as needed */
+			text-align: left;;
+		}
+
+		.major h2 {
+			text-align: left;
+			/* Aligns content to the left */
+			font-family: Didot, sans-serif;
+		}
+
+		.major h3 {
+			text-align: justify;
+			/* Aligns content to the left */
+			font-family: Didot, sans-serif;
+		}
+
+		.map-container h3 {
+			grid-column: 1 / -1;
+			/* Make the header span across the entire width of the grid */
+			font-family: Didot, sans-serif;
+			/* Change font family if desired */
+			font-size: 1.75em;
+			/* Adjust font size */
+			margin-top: 20px;
+			/* Add some margin for spacing */
+			margin-bottom: 10px;
+			/* Add some margin for spacing */
+		}
+
+		.web-map-container h3 {
+			grid-column: 1 / -1;
+			/* Make the header span across the entire width of the grid */
+			font-family: Didot, sans-serif;
+			/* Change font family if desired */
+			font-size: 1.35em;
+			/* Adjust font size */
+			margin-top: 20px;
+			/* Add some margin for spacing */
+			margin-bottom: 10px;
+			/* Add some margin for spacing */
+
+		}
+
+		.map-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 10px;
+			margin-bottom: 50px;
+			align-items: center;
+			/* Center items vertically */
+			/* Adjust the value as needed */
+		}
+
+		.pythonanywhere-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 10px;
+			margin-bottom: 150px;
+			/* Adjust the value as needed */
+		}
+
+		.map-item {
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+		.map-item img {
+			width: 100%;
+			height: auto;
+			transition: transform 0.2s ease-in-out;
+		}
+
+		.map-item:hover img {
+			transform: scale(1.1);
+		}
+
+		.map-modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.8);
+			z-index: 1000;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.map-modal img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.caption {
+			font-size: 0.8em;
+			/* Adjust as needed for smaller font size */
+			color: #555;
+			/* Optional: adjust color for better readability */
+			display: block;
+			text-align: left;
+			margin-top: -10px;
+			/* Adjust margin as needed */
+		}
+
+		.tableauVizContainer {
+			width: 100%;
+			max-width: 1200px;
+			/* You can adjust the maximum width as needed */
+			height: auto;
+			margin: 0 auto;
+			/* Centers the Tableau visualization */
+		}
+
+		.tableauVizContainer object {
+			width: 100%;
+			height: 800px;
+			/* Set a fixed height or adjust as needed */
+		}
+
+		#main p {
+    		text-align: left;
+		}
+		
+	</style>
+	
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			// Function to load Tableau viz when switching projects
+			function loadTableauViz(vizUrl, containerId) {
+				// Create a new script element for Tableau API
+				var scriptElement = document.createElement("script");
+				scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+				scriptElement.onload = function () {
+					// Tableau API loaded, now embed the viz
+					var container = document.getElementById(containerId);
+					container.innerHTML = "<object class='tableauViz' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /><param name='embed_code_version' value='3' /><param name='site_root' value='' /><param name='name' value='" + vizUrl + "' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object>";
+					// Trigger script to load the viz
+					var vizScript = document.createElement("script");
+					vizScript.text = "var divElement = document.getElementById('" + containerId + "'); var vizElement = divElement.getElementsByTagName('object')[0]; var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);";
+					document.body.appendChild(vizScript);
+				};
+				document.body.appendChild(scriptElement);
+			}
+		});
+	</script>
+
+
+
+<!-- Wrapper, brown / black banner color  -->
+<div id="wrapper" class="fade-in">
+
+	<!-- Intro -->
+	<div id="intro">
+		<h1>Andre Sabala<br />
+			Portfolio</h1>
+		<p>Showcasing skills and proficiencies in SQL, Python , Tableau and ArcGIS Pro</a>.</p>
+		<ul class="actions">
+			<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+		</ul>
+	</div>
+</div>
+
+
+
+	<!-- Navigation Bar with GitHub symbol link -->
+	<nav id="nav">
+		<ul class="icons">
+			<li><a href="https://github.com/ajsbla1995" class="icon brands fa-github"><span
+						class="label">GitHub</span></a></li>
+		</ul>
+	</nav>
+
+	<!-- Main --->
+	<div id="main">
+		<section>
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<h2>Welcome to my Portfolio Website!</h2>
+					<p>
+						This portfolio covers a range of spatial data topics that are important to me - particularly regarding land use and 
+						management, ecology, agriculture and wildfire analysis. Both spatial and non-spatial data were extracted, transformed
+						and loaded primarily using Python, SQL and ArcGIS Pro - dashboards were created with Tableau Public. 
+						<br><br>Thank you for visiting!</br></br>
+					</p>
+				</header>
+			</article>
+		</section>
+
+		<!-- Main --->
+		<div id="main1">
+			<section>
+				<!-- Featured Post -->
+				<article class="post featured">
+					<header class="major">
+						<h1>GIS Projects<br /></h1>
+					</header>
+					<body>
+						<div class="map-container">
+							<h3>ArcGIS Pro Projects</h3>
+							<div class="map-item">
+								<img src="Maps/2000 WUI Layout.png" data-path="Maps/2000 WUI Layout.png" alt="Map 3">
+							</div>
+							<div class="map-item">
+								<img src="Maps/2020 WUI Layout.png" data-path="Maps/2020 WUI Layout.png" alt="Map 3">
+							</div>
+							<div class="map-item">
+								<img src="Maps/CA_Choropleth.png" data-path="Maps/CA_Choropleth.png" alt="Map 2">
+							</div>
+							<div class="map-item">
+								<img src="Maps/SoCo_Site_Suitability_1.png" data-path="Maps/SoCo_Site_Suitability_1.png"
+									alt="Map 3">
+							</div>
+
+							<h3>Python Projects</h3>
+							<div class="map-item">
+								<img src="Maps/damage_causing_agent.png" data-path="Maps/damage_causing_agent.png"
+									alt="Map 3">
+							</div>
+							<div class="map-item">
+								<img src="Maps/August Fire Veg Health.png" data-path="Maps/August Fire Veg Health.png"
+									alt="Map 3">
+							</div>
+							<div class="map-item">
+								<img src="Maps/Yosemite_Peak_Elevations.png"
+									data-path="Maps/Yosemite_Peak_Elevations.png" alt="Map 3">
+							</div>
+							<!-- Modal for displaying enlarged map -->
+							<div id="mapModal" class="map-modal">
+								<img id="modalImg" src="" alt="Enlarged Map">
+							</div>
+							<script>
+								document.addEventListener("DOMContentLoaded", function () {
+									var mapItems = document.querySelectorAll('.map-item img');
+									var modal = document.getElementById('mapModal');
+									var modalImg = document.getElementById('modalImg');
+
+									// Add click event listeners to each map item
+									mapItems.forEach(function (item) {
+										item.addEventListener('click', function () {
+											openModal(this.getAttribute('data-path'));
+										});
+									});
+
+									function openModal(imgPath) {
+										modalImg.src = imgPath;
+										modal.style.display = "flex";
+									}
+
+									function closeModal() {
+										modal.style.display = "none";
+									}
+
+									// Close the modal when clicking outside of the image
+									modal.addEventListener('click', function (event) {
+										if (event.target === modal) {
+											closeModal();
+										}
+									});
+								});
+							</script>
+						</div>
+
+						<head>
+							<meta charset="UTF-8">
+							<meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<title>Web Maps</title>
+						</head>
+
+						<body>
+							<div class="major">
+								<!-- Isochrone Map -->
+								<div class="web-map-container">
+									<h3><a href= "https://github.com/ajsbla1995/Fire-Station-Network-Analysis">Isochrone Map of Areas within 4-10 Minutes from Fire Dept</a></h3>
+									<iframe src="Maps/Calaveras County_network_interactive.html" width="100%"
+										height="850" frameborder="0" scrolling="no"></iframe>
+								</div>
+								<!-- Wildfire Tracker Map -->
+								<div class="web-map-container">
+									<h3><a href="https://github.com/ajsbla1995/CA-Wildfire-Web-Map">California Wildfire Tracker Map</a></h3>
+									<small class="caption">please allow for up to 1 minute for the map to
+										load</small>
+									<iframe id="pythonanywhere-frame" src="http://ajsbla.pythonanywhere.com/"
+										width="100%" height="850" frameborder="0" scrolling="no"></iframe>
+								</div>
+							</div>
+						</body>
+					</body>
+				</article>
+			</section>
+		</div>
+
+
+			<!-- Main --->
+			<div id="main1">
+				<section>
+					<!-- Featured Post -->
+					<article class="post featured">
+						<header class="major">
+							<h1><br>DATA ANALYSIS PROJECTS<br /></h1>
+						</header>
+
+						<body>
+							<div class="major">
+								<h2><a href="https://github.com/ajsbla1995/CA-Agriculture-Market-Data">CA Agriculture
+										Market Analysis</a></h2>
+								<p>
+									<i>Using Python, agroeconomic data were extracted from the CA Department of
+										Food and Agriculture (CDFA)'s yearly pdf report: Agricultural Statistics Review. An exploratory analysis of California's
+										top agricultural exports from 2015-2021 was conducted in Python, and further
+										visualization is presented below as a dashboard built in Tableau.</i>
+								</p>
+							</div>
+							<a href="https://github.com/ajsbla1995/Wine-" class="image main">
+								<div class='tableauVizContainer'>
+									<div class='tableauPlaceholder' id='viz1704778867520' style='position: relative'>
+										<noscript><a href='#'><img alt='Dashboard 1 '
+													src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CA&#47;CAAgFinal&#47;Dashboard1&#47;1_rss.png'
+													style='border: none' /></a></noscript>
+										<object class='tableauViz'>
+											<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+											<param name='embed_code_version' value='3' />
+											<param name='site_root' value='' />
+											<param name='name' value='CAAgFinal&#47;Dashboard1' />
+											<param name='tabs' value='no' />
+											<param name='toolbar' value='yes' />
+											<param name='static_image'
+												value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CA&#47;CAAgFinal&#47;Dashboard1&#47;1.png' />
+											<param name='animate_transition' value='yes' />
+											<param name='display_static_image' value='yes' />
+											<param name='display_spinner' value='yes' />
+											<param name='display_overlay' value='yes' />
+											<param name='display_count' value='yes' />
+											<param name='language' value='en-US' />
+										</object>
+									</div>
+								</div>
+							</a>
+							<ul class="actions special">
+								<li><a href="https://github.com/ajsbla1995/CA-Agriculture-Market-Data"
+										class="button large">View Project on GitHub</a></li>
+								<li><a href="https://github.com/ajsbla1995/CA-Agriculture-Market-Data/blob/main/CA%20Market%20Python%20EDA.ipynb"
+										class="button large">View Python Code and Analysis</a></li>
+							</ul>
+				</section>
+			</div>
+              <!-- Main -->
+			  <div id="main1">
+				<section>
+				<!-- Featured Post -->
+				<article class="post featured">
+					<header class="major">
+						<h2><a href="https://github.com/ajsbla1995/Wine-">Analysis of Wine Scores and Prices</a></h2>
+					</header>
+					<p><i>
+						In this project, the relationships of wine scores, prices, and descriptions of over 100,000 wines.
+						The primary goals of this project were to determine:
+				
+					<p>
+						<li>Whether there is a strong correlation between price and scores for varietal wines.</li>
+						<li>The relative score and price for each varietal wine.</li>
+						<li>The frequency of descriptor words used by critics for different price and score segments.</li>
+						<li>The relationship of wine scores vs. price for wine-growing regions in selected countries and visualize.</li>
+					</p>
+			
+					A dataset of wine scores and reviews from a csv file from www.kaggle.com was loaded into and cleaned in MySQL. A database connection between MySQL and
+					Python was then used for further exploratory analysis and visualization in Python. 
+					Finally, a Tableau dashboard comparing Old and New World wines based on score and price was built - and can be seen below.
+					</i></p>
+					<a href="https://github.com/ajsbla1995/Wine-" class="image main">
+						<div class='tableauVizContainer'>
+							<div class='tableauPlaceholder' id='viz1693773916934' style='position: relative'>
+								<noscript><a href='#'><img alt='Comparing Wine Scores and Prices in the New World and Old World wines  '
+										src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Wi&#47;WineFinal_16910433011370&#47;DashWithParameter&#47;1_rss.png'
+										style='border: none' /></a></noscript>
+								<object class='tableauViz'>
+									<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+									<param name='embed_code_version' value='3' />
+									<param name='site_root' value='' />
+									<param name='name' value='WineFinal_16910433011370&#47;DashWithParameter' />
+									<param name='tabs' value='no' />
+									<param name='toolbar' value='yes' />
+									<param name='static_image'
+										value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Wi&#47;WineFinal_16910433011370&#47;DashWithParameter&#47;1.png' />
+									<param name='animate_transition' value='yes' />
+									<param name='display_static_image' value='yes' />
+									<param name='display_spinner' value='yes' />
+									<param name='display_overlay' value='yes' />
+									<param name='display_count' value='yes' />
+									<param name='language' value='en-US' />
+								</object>
+							</div>
+						</div>
+					</a>
+					<ul class="actions special">
+						<li><a href="https://github.com/ajsbla1995/Wine" class="button large">View Project on GitHub</a></li>
+						<li><a href = "https://github.com/ajsbla1995/Wine/blob/main/MySQL%20%3A%20Data%20Cleaning%2C%20Manipulation%2C%20Exploratory%20Analysis.spfs" class = "button large">View SQL code</a></li>
+						<li><a href="https://github.com/ajsbla1995/Wine/blob/main/Python%20Viz%20and%20Exploration.ipynb" class="button large">View Python code</a></li>
+						<li><a href="https://github.com/ajsbla1995/Wine/blob/main/insights_and_vizzes.pdf" class="button large">View Analysis and WordCloud</a></li>
+					</ul>
+				</article>
+			</section>
+			</div>
+			<!-- Main -->
+            <div id="main1">
+                <section>
+                    <!-- Featured Post -->
+                    <article class="post featured">
+                        <header class="major">
+                            <h2><a href="https://github.com/ajsbla1995/Wine-">Analysis of CA Wildfire Seasons (2014-2020)</a></h2>
+                            <p>
+                                This project uses data extracted directly from CALFire.gov to visualize the relative size of major fires California from 2014-2020. I used SQL, Excel and Tableau to explore and visualize the comprehensive state and county statistics of mortality, structural damage, and acreage burned caused by wildfires during this historic period in CA wildfire history.
+						
+                            </p>
+                        </header>
+                        <a href="https://github.com/ajsbla1995/Wine-" class="image main">
+                            <div class='tableauVizContainer'>
+                                <div class='tableauPlaceholder' id='viz1694563949792' style='position: relative'>
+                                    <noscript><a href='#'><img alt='Dashboard- Showing Totals '
+                                            src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Wi&#47;WildfiresV2_16820476212350&#47;Dashboard-ShowingTotals&#47;1_rss.png'
+                                            style='border: none' /></a></noscript>
+                                    <object class='tableauViz'>
+                                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                                        <param name='embed_code_version' value='3' />
+                                        <param name='site_root' value='' />
+                                        <param name='name' value='WildfiresV2_16820476212350&#47;Dashboard-ShowingTotals' />
+                                        <param name='tabs' value='no' />
+                                        <param name='toolbar' value='yes' />
+                                        <param name='static_image'
+                                            value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Wi&#47;WildfiresV2_16820476212350&#47;Dashboard-ShowingTotals&#47;1.png' />
+                                        <param name='animate_transition' value='yes' />
+                                        <param name='display_static_image' value='yes' />
+                                        <param name='display_spinner' value='yes' />
+                                        <param name='display_overlay' value='yes' />
+                                        <param name='display_count' value='yes' />
+                                        <param name='language' value='en-US' />
+                                        <param name='filter' value='publish=yes' />
+                                    </object>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class="actions special">
+                            <li><a href="https://github.com/ajsbla1995/CA-Wildfire-Analysis" class="button large">View Project on GitHub</a></li>
+                            <li><a href="https://github.com/ajsbla1995/CA-Wildfire-Analysis/blob/main/CAFireSQL.spfs" class="button large">View SQL code</a></li>
+                        </ul>
+                    </article>
+                </section> 
+		</div>
+
+			<section>
+				<!-- Footer -->
+				<section>
+					<footer id="footer">
+						<section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>5060 Parkhurst Drive<br />
+									Santa Rosa, CA 95409 </p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(831) 419-0014</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">ajsbla1995@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span
+												class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span
+												class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span
+												class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span
+												class="label">GitHub</span></a>
+									</li>
+								</ul>
+							</section>
+						</section>
+					</section>
+				</footer>
+
+				<!-- Copyright -->
+				<div id="copyright">
+					<ul>
+						<li>&copy; Untitled</li>
+						<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+
+		</div>
+
+			<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<!-- Waits for the website to fully load before implementing-->
+			<script src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
+			<script>
+				// Wait for the DOM content to load
+				document.addEventListener("DOMContentLoaded", function () {
+					// Function to adjust Tableau visualization sizes based on parent element width
+					function adjustVizSize() {
+						var vizElements = document.querySelectorAll('.tableauPlaceholder');
+						vizElements.forEach(function (vizElement) {
+							var vizObject = vizElement.getElementsByTagName('object')[0];
+							if (vizObject) {
+								if (vizElement.offsetWidth > 800) {
+									vizObject.style.minWidth = '620px';
+									vizObject.style.maxWidth = '1120px';
+									vizObject.style.width = '100%';
+									vizObject.style.minHeight = '587px';
+									vizObject.style.maxHeight = '1187px';
+									vizObject.style.height = (vizElement.offsetWidth * 0.75) + 'px';
+								} else if (vizElement.offsetWidth > 500) {
+									vizObject.style.minWidth = '620px';
+									vizObject.style.maxWidth = '1120px';
+									vizObject.style.width = '100%';
+									vizObject.style.minHeight = '587px';
+									vizObject.style.maxHeight = '1187px';
+									vizObject.style.height = (vizElement.offsetWidth * 0.75) + 'px';
+								} else {
+									vizObject.style.width = '100%';
+									vizObject.style.height = '3377px'; // Adjust height as necessary
+								}
+							}
+						});
+					}
+
+					// Adjust viz sizes initially
+					adjustVizSize();
+
+					// Add event listener to adjust viz sizes on window resize
+					window.addEventListener('resize', adjustVizSize);
+				});
+			</script>
+
+
+			</body>
+
+</html>
